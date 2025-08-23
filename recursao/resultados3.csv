@@ -1,0 +1,7 @@
+N,Iterativa_Resultado,Iterativa_Tempo_ns,Recursiva_Resultado,Recursiva_Tempo_ns
+10,55,1400,55,1000
+20,210,1700,210,1000
+30,465,1100,465,1300
+40,820,900,820,1400
+50,1275,1400,1275,4300
+100,5050,2000,5050,4000
