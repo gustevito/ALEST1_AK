@@ -44,9 +44,14 @@ public class ListArrayOfInteger {
     }
 
     public void remove(Integer element) {
-        for (int i = 0; i < data.length; i++) {
-            if (element == data[i]) {
-                data[i] = null;
+        for (int i = 0; i < count; i++) {
+            if (data[i].equals(element)) {
+                for (int j = i; j < count - 1; j++) {
+                    data[j] = data[j + 1];
+                }
+                data[count - 1] = null;
+                count--;
+                break;
             }
         }
     }
@@ -56,6 +61,15 @@ public class ListArrayOfInteger {
             throw new IndexOutOfBoundsException("Index = " + index);
         }
         return data[index];
+    }
+
+    public boolean set(int index, int newElement) {
+        if (index < 0 || index >= count) {
+            return false;
+        } else {
+            data[index] = newElement;
+            return true;
+        }
     }
 
     private void setCapacity(int newCapacity) {
@@ -71,6 +85,14 @@ public class ListArrayOfInteger {
                 newData[i] = data[i];
             }
             data = newData;
+        }
+    }
+
+    public boolean contains(int element) {
+        for (int i = 0; i < count; i++) {
+            if (data[i] = element) {
+                return true;
+            }
         }
     }
 
