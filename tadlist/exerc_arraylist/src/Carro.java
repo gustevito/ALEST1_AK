@@ -29,13 +29,4 @@ public class Carro implements Comparable<Carro> {
     public String toString() {
         return placa.getCodigo();
     }
-
-    public String toStringDetalhado() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("--- Carro: ---");
-        sb.append("\nMarca: " + marca);
-        sb.append("\nPlaca: " + placa);
-        sb.append("\nCor: " + cor);
-        return sb.toString();
-    }
 }
