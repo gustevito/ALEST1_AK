@@ -1,12 +1,8 @@
-public class Carro {
-    private String marca;
-    private String cor;
+public class Carro implements Comparable<Carro> {
     private Placa placa;
 
-    public Carro(Placa placa, String marca, String cor) {
+    public Carro(Placa placa) {
         this.placa = placa;
-        this.marca = marca;
-        this.cor = cor;
     }
 
     // getters e setters
@@ -14,26 +10,27 @@ public class Carro {
         return placa;
     }
 
-    public String getMarca() {
-        return marca;
+    @Override
+    public int compareTo(Carro outro) {
+        return this.placa.getCodigo().compareTo(outro.placa.getCodigo());
     }
 
-    public String getCor() {
-        return cor;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Carro carro = (Carro) obj;
+        return placa.getCodigo().equals(carro.placa.getCodigo());
     }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
-
-    // metodos
 
     @Override
     public String toString() {
+        return placa.getCodigo();
+    }
+
+    public String toStringDetalhado() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- Carro: ---");
         sb.append("\nMarca: " + marca);
