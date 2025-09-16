@@ -68,14 +68,26 @@ public class DoubleLinkedListOfInteger {
     public void add(int index, Integer element) {
         Node n = new Node(element);
 
-        if (index > count) {
-            addF(n);
-        }
-        if (index < count) {
-            addI(n);
+        if (index < 0 || index > count) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
         }
 
-        // incompleto
+        if (index == 0) {
+            addI(element);
+        } else if (index == count) {
+            addF(element);
+        } else {
+
+            current = header.next;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+
+            n.prev = current.next;
+            n.next = current.next.prev;
+            // incompleto
+
+        }
     }
 
     @Override
