@@ -41,7 +41,7 @@ public class DoubleLinkedListOfInteger {
         return count;
     }
 
-    public void add(Integer element) {
+    public void addF(Integer element) {
         Node n = new Node(element);
 
         n.prev = trailer.prev; // n.prev = antigo último nó
@@ -51,6 +51,31 @@ public class DoubleLinkedListOfInteger {
 
         trailer.prev = n; // trailer agora reconhece o novo último
         count++;
+    }
+
+    public void addI(Integer element) {
+        Node n = new Node(element);
+
+        n.next = header.next;
+        n.prev = header;
+
+        header.next.prev = n;
+
+        header.next = n;
+        count++;
+    }
+
+    public void add(int index, Integer element) {
+        Node n = new Node(element);
+
+        if (index > count) {
+            addF(n);
+        }
+        if (index < count) {
+            addI(n);
+        }
+
+        // incompleto
     }
 
     @Override
