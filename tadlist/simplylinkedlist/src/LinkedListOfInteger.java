@@ -1,6 +1,9 @@
 public class LinkedListOfInteger {
 
-    // Classe interna Node
+    private Node head;
+    private Node tail;
+    private int count;
+
     private class Node {
         public Integer element;
         public Node next;
@@ -15,13 +18,6 @@ public class LinkedListOfInteger {
             this.next = next;
         }
     }
-
-    // Referência para o primeiro elemento da lista encadeada.
-    private Node head;
-    // Referência para o último elemento da lista encadeada.
-    private Node tail;
-    // Contador para a quantidade de elementos que a lista contem.
-    private int count;
 
     // Construtor da lista
     public LinkedListOfInteger() {
@@ -96,6 +92,8 @@ public class LinkedListOfInteger {
         if (index < 0 || index >= size()) {
             throw IndexOutOfBoundsException();
         }
+
+        return element;
 
     }
 

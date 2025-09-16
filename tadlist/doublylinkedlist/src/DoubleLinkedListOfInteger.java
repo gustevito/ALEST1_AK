@@ -1,11 +1,8 @@
 public class DoubleLinkedListOfInteger {
-    // Referencia para o sentinela de inicio da lista encadeada.
+
     private Node header;
-    // Referencia para o sentinela de fim da lista encadeada.
     private Node trailer;
-    // Referencia para a posicao corrente.
     private Node current;
-    // Contador do numero de elementos da lista.
     private int count;
 
     private class Node {
@@ -28,9 +25,6 @@ public class DoubleLinkedListOfInteger {
         count = 0;
     }
 
-    /**
-     * Esvazia a lista
-     */
     public void clear() {
         header = new Node(null);
         trailer = new Node(null);
@@ -39,43 +33,40 @@ public class DoubleLinkedListOfInteger {
         count = 0;
     }
 
-    /**
-     * Retorna true se a lista não contem elementos
-     * 
-     * @return true se a lista não contem elementos
-     */
     public boolean isEmpty() {
         return (count == 0);
     }
 
-    /**
-     * Retorna o numero de elementos da lista
-     * 
-     * @return o numero de elementos da lista
-     */
     public int size() {
         return count;
     }
 
     public void add(Integer element) {
         Node n = new Node(element);
-        if (header == null) {
-            header = n;
-        } else {
-            trailer.next = n;
-        }
+
+        n.prev = trailer.prev; // n.prev = antigo último nó
+        n.next = trailer; // n agora é o último elemento antes de trailer
+
+        trailer.prev.next = n; // antigo último nó aponta para o novo nó (n)
+
+        trailer.prev = n; // trailer agora reconhece o novo último
+        count++;
     }
 
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         Node aux = header.next;
-        for (int i = 0; i < count; i++) {
-            s.append(aux.element.toString());
-            s.append("\n");
+
+        while (aux != null && aux != trailer) {
+            sb.append(aux.element);
+            if (aux.next != trailer) {
+                sb.append(System.lineSeparator());
+            }
             aux = aux.next;
         }
-        return s.toString();
+
+        return sb.toString();
     }
 
 }
