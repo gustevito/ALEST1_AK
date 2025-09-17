@@ -47,7 +47,8 @@ public class DoubleLinkedListOfInteger {
         n.prev = trailer.prev; // n.prev = antigo último nó
         n.next = trailer; // n agora é o último elemento antes de trailer
 
-        trailer.prev.next = n; // antigo último nó aponta para o novo nó (n)
+        trailer.prev.next = n; // antigo último nó aponta para o novo nó (n) / o next do nodo prev agora aponta
+                               // para o elemento de n
 
         trailer.prev = n; // trailer agora reconhece o novo último
         count++;
@@ -68,26 +69,18 @@ public class DoubleLinkedListOfInteger {
     public void add(int index, Integer element) {
         Node n = new Node(element);
 
-        if (index < 0 || index > count) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
+        current = header;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
         }
 
-        if (index == 0) {
-            addI(element);
-        } else if (index == count) {
-            addF(element);
-        } else {
+        n.prev = current.prev;
+        n.next = current;
 
-            current = header.next;
-            for (int i = 0; i < index; i++) {
-                current = current.next;
-            }
+        current.prev.next = n;
 
-            n.prev = current.next;
-            n.next = current.next.prev;
-            // incompleto
-
-        }
+        current.prev = n;
+        count++;
     }
 
     @Override

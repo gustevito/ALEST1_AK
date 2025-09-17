@@ -18,6 +18,13 @@ public class App {
         System.out.println("Tamanho da lista: " + l.size());
         System.out.println("----------------------");
 
+        System.out.println("\n*ADICIONA 50 NO INDEX 2*");
+        l.add(2, 50);
+        System.out.println("\nLista atualizada: \n" + l);
+        System.out.println("----------------------");
+        System.out.println("Tamanho da lista: " + l.size());
+        System.out.println("----------------------");
+
     }
 
 }
