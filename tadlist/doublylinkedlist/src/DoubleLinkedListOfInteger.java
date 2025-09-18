@@ -83,7 +83,19 @@ public class DoubleLinkedListOfInteger {
         count++;
     }
 
-    // .
+    public void removeI() {
+        header.next = header.next.next;
+        header.next.next.prev = header;
+        count--;
+    }
+
+    public void removeF(Integer element) {
+
+    }
+
+    public void remove(int index, Integer element) {
+
+    }
 
     @Override
     public String toString() {

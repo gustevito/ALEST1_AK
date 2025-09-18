@@ -25,6 +25,13 @@ public class App {
         System.out.println("Tamanho da lista: " + l.size());
         System.out.println("----------------------");
 
+        System.out.println("\n*REMOVE O 1º ELEMENTO DA LISTA*");
+        l.removeI();
+        System.out.println("\nLista atualizada: \n" + l);
+        System.out.println("----------------------");
+        System.out.println("Tamanho da lista: " + l.size());
+        System.out.println("----------------------");
+
     }
 
 }
