@@ -41,7 +41,21 @@ public class DoubleLinkedListOfInteger {
         return count;
     }
 
-    public void addF(Integer element) {
+    // metodos de add -----------------------------------
+
+    public void addInicio(Integer element) {
+        Node n = new Node(element);
+
+        n.next = header.next;
+        n.prev = header;
+
+        header.next.prev = n;
+
+        header.next = n;
+        count++;
+    }
+
+    public void addFim(Integer element) {
         Node n = new Node(element);
 
         n.prev = trailer.prev; // n.prev = antigo último nó
@@ -51,18 +65,6 @@ public class DoubleLinkedListOfInteger {
                                // para o elemento de n
 
         trailer.prev = n; // trailer agora reconhece o novo último
-        count++;
-    }
-
-    public void addI(Integer element) {
-        Node n = new Node(element);
-
-        n.next = header.next;
-        n.prev = header;
-
-        header.next.prev = n;
-
-        header.next = n;
         count++;
     }
 
@@ -83,19 +85,44 @@ public class DoubleLinkedListOfInteger {
         count++;
     }
 
-    public void removeI() {
+    // métodos de remove --------------------------------
+
+    public void removeInicio() {
         header.next = header.next.next;
         header.next.next.prev = header;
         count--;
     }
 
-    public void removeF(Integer element) {
-
+    public void removeFim() {
+        trailer.prev = trailer.prev.prev;
+        trailer.prev.prev.next = trailer;
+        count--;
     }
 
-    public void remove(int index, Integer element) {
+    public void removeElemento(Integer element) {
+        current = header;
+        for (int i = 0; i < count; i++) {
+            current = current.next;
+        }
 
+        if (current == element) {
+            current.next.prev = current.prev;
+            current.prev.next = current.next;
+        }
     }
+
+    public void remove(int index) {
+        current = header;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        current.next.prev = current.prev;
+        current.prev.next = current.next;
+        count--;
+    }
+
+    // toString ---------------------------------------
 
     @Override
     public String toString() {
