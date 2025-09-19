@@ -73,6 +73,7 @@ public class LinkedListOfInteger {
 
         if (count == 0) {
             head = n;
+            tail = n.next;
         }
 
         n.next = head.next;
@@ -82,26 +83,30 @@ public class LinkedListOfInteger {
 
     public void addFim(Integer element) {
         Node n = new Node(element);
-        if (head == null) {
+
+        if (count == 0) {
             head = n;
+            tail = n;
         } else {
             tail.next = n;
+            tail = n;
         }
-        tail = n;
         count++;
     }
 
-    public Integer get(Integer index) {
-        if (index < 0 || index > count) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (index == count) {
-            return tail.element;
-        }
-        if (index == 1) {
-            return head.element;
-        }
-    }
+    /*
+     * public Integer get(Integer index) {
+     * if (index < 0 || index > count) {
+     * throw new IndexOutOfBoundsException();
+     * }
+     * if (index == count) {
+     * return tail.element;
+     * }
+     * if (index == 1) {
+     * return head.element;
+     * }
+     * }
+     */
 
     public Integer set(int index, Integer element) {
         if ((index < 0) || (index >= count)) {
