@@ -40,44 +40,6 @@ public class LinkedListOfInteger {
         count = 0;
     }
 
-    public void add(Integer element) {
-        Node n = new Node(element);
-        if (head == null) {
-            head = n;
-        } else {
-            tail.next = n;
-        }
-        tail = n;
-        count++;
-    }
-
-    public Integer get(int index) {
-        if ((index < 0) || (index >= count)) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (index == count - 1)
-            return tail.element;
-
-        Node current = head;
-        int c = 0;
-        while (c < index) {
-            current = current.next;
-            c++;
-        }
-        return current.element;
-    }
-
-    public boolean contains(Integer element) {
-        Node current = head;
-        while (current != null) {
-            if (current.element.equals(element)) {
-                return true;
-            }
-            current = current.next;
-        }
-        return false;
-    }
-
     public void add(int index, Integer element) {
         if (index < 0 || index > size())
             throw new IndexOutOfBoundsException();
@@ -106,6 +68,41 @@ public class LinkedListOfInteger {
         count++;
     }
 
+    public void addInicio(Integer element) {
+        Node n = new Node(element);
+
+        if (count == 0) {
+            head = n;
+        }
+
+        n.next = head.next;
+        head.next = n;
+        count++;
+    }
+
+    public void addFim(Integer element) {
+        Node n = new Node(element);
+        if (head == null) {
+            head = n;
+        } else {
+            tail.next = n;
+        }
+        tail = n;
+        count++;
+    }
+
+    public Integer get(Integer index) {
+        if (index < 0 || index > count) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == count) {
+            return tail.element;
+        }
+        if (index == 1) {
+            return head.element;
+        }
+    }
+
     public Integer set(int index, Integer element) {
         if ((index < 0) || (index >= count)) {
             throw new IndexOutOfBoundsException();
@@ -125,6 +122,17 @@ public class LinkedListOfInteger {
         Integer currentElement = current.element;
         current.element = element;
         return currentElement;
+    }
+
+    public boolean contains(Integer element) {
+        Node current = head;
+        while (current != null) {
+            if (current.element.equals(element)) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
     }
 
     public boolean remove(Integer element) {
