@@ -41,19 +41,9 @@ public class DoubleLinkedListOfInteger {
         return count;
     }
 
-    public void addF(Integer element) {
-        Node n = new Node(element);
+    // metodos de add -----------------------------------
 
-        n.prev = trailer.prev; // n.prev = antigo último nó
-        n.next = trailer; // n agora é o último elemento antes de trailer
-
-        trailer.prev.next = n; // antigo último nó aponta para o novo nó (n)
-
-        trailer.prev = n; // trailer agora reconhece o novo último
-        count++;
-    }
-
-    public void addI(Integer element) {
+    public void addInicio(Integer element) {
         Node n = new Node(element);
 
         n.next = header.next;
@@ -65,18 +55,74 @@ public class DoubleLinkedListOfInteger {
         count++;
     }
 
+    public void addFim(Integer element) {
+        Node n = new Node(element);
+
+        n.prev = trailer.prev; // n.prev = antigo último nó
+        n.next = trailer; // n agora é o último elemento antes de trailer
+
+        trailer.prev.next = n; // antigo último nó aponta para o novo nó (n) / o next do nodo prev agora aponta
+                               // para o elemento de n
+
+        trailer.prev = n; // trailer agora reconhece o novo último
+        count++;
+    }
+
     public void add(int index, Integer element) {
         Node n = new Node(element);
 
-        if (index > count) {
-            addF(n);
-        }
-        if (index < count) {
-            addI(n);
+        current = header;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
         }
 
-        // incompleto
+        n.prev = current.prev;
+        n.next = current;
+
+        current.prev.next = n;
+
+        current.prev = n;
+        count++;
     }
+
+    // métodos de remove --------------------------------
+
+    public void removeInicio() {
+        header.next = header.next.next;
+        header.next.next.prev = header;
+        count--;
+    }
+
+    public void removeFim() {
+        trailer.prev = trailer.prev.prev;
+        trailer.prev.prev.next = trailer;
+        count--;
+    }
+
+    public void removeElemento(Integer element) {
+        current = header;
+        for (int i = 0; i < count; i++) {
+            current = current.next;
+        }
+
+        if (current == element) {
+            current.next.prev = current.prev;
+            current.prev.next = current.next;
+        }
+    }
+
+    public void remove(int index) {
+        current = header;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        current.next.prev = current.prev;
+        current.prev.next = current.next;
+        count--;
+    }
+
+    // toString ---------------------------------------
 
     @Override
     public String toString() {

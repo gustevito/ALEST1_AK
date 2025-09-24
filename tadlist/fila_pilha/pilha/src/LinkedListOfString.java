@@ -1,15 +1,15 @@
-public class LinkedListOfInteger {
+public class LinkedListOfString {
 
     private class Node {
-        public Integer element;
+        public String element;
         public Node next;
 
-        public Node(Integer element) {
+        public Node(String element) {
             this.element = element;
             next = null;
         }
 
-        public Node(Integer element, Node next) {
+        public Node(String element, Node next) {
             this.element = element;
             this.next = next;
         }
@@ -19,7 +19,7 @@ public class LinkedListOfInteger {
     private Node tail;
     private int count;
 
-    public LinkedListOfInteger() {
+    public LinkedListOfString() {
         head = null;
         tail = null;
         count = 0;
@@ -40,7 +40,7 @@ public class LinkedListOfInteger {
         count = 0;
     }
 
-    public void add(int index, Integer element) {
+    public void add(int index, String element) {
         if (index < 0 || index > size())
             throw new IndexOutOfBoundsException();
 
@@ -68,7 +68,7 @@ public class LinkedListOfInteger {
         count++;
     }
 
-    public void addInicio(Integer element) {
+    public void addInicio(String element) {
         Node n = new Node(element);
 
         if (count == 0) {
@@ -81,7 +81,7 @@ public class LinkedListOfInteger {
         count++;
     }
 
-    public void addFim(Integer element) {
+    public void addFim(String element) {
         Node n = new Node(element);
 
         if (count == 0) {
@@ -95,7 +95,7 @@ public class LinkedListOfInteger {
     }
 
     /*
-     * public Integer get(Integer index) {
+     * public String get(String index) {
      * if (index < 0 || index > count) {
      * throw new IndexOutOfBoundsException();
      * }
@@ -108,12 +108,12 @@ public class LinkedListOfInteger {
      * }
      */
 
-    public Integer set(int index, Integer element) {
+    public String set(int index, String element) {
         if ((index < 0) || (index >= count)) {
             throw new IndexOutOfBoundsException();
         }
         if (index == count - 1) {
-            Integer currentElement = tail.element;
+            String currentElement = tail.element;
             tail.element = element;
             return currentElement;
         }
@@ -124,12 +124,12 @@ public class LinkedListOfInteger {
             current = current.next;
             c++;
         }
-        Integer currentElement = current.element;
+        String currentElement = current.element;
         current.element = element;
         return currentElement;
     }
 
-    public boolean contains(Integer element) {
+    public boolean contains(String element) {
         Node current = head;
         while (current != null) {
             if (current.element.equals(element)) {
@@ -140,7 +140,7 @@ public class LinkedListOfInteger {
         return false;
     }
 
-    public boolean remove(Integer element) {
+    public boolean remove(String element) {
         if (count == 0)
             return false;
 
@@ -171,6 +171,35 @@ public class LinkedListOfInteger {
             ant = ant.next;
         }
         return false;
+    }
+
+    public String removeByIndex(int index) {
+        if (index < 0 || index >= size())
+            throw new IndexOutOfBoundsException();
+
+        if (index == 0) {
+            String elemRemovido = head.element;
+            head = head.next;
+            if (count == 1) {
+                tail = null;
+            }
+            count--;
+            return elemRemovido;
+        }
+
+        Node ant = head;
+        for (int i = 0; i < index - 1; i++) {
+            ant = ant.next;
+        }
+        String elemRemovido = ant.next.element;
+        if (index == count - 1) {
+            tail = ant;
+            tail.next = null;
+        } else {
+            ant.next = ant.next.next;
+        }
+        count--;
+        return elemRemovido;
     }
 
     // toString ------------------------------------
