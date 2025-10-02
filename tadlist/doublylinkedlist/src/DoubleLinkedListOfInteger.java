@@ -129,13 +129,15 @@ public class DoubleLinkedListOfInteger {
         StringBuilder sb = new StringBuilder();
         Node aux = header.next;
 
+        sb.append("{ ");
         while (aux != null && aux != trailer) {
             sb.append(aux.element);
             if (aux.next != trailer) {
-                sb.append(System.lineSeparator());
+                sb.append(", "); // Adiciona espaço entre elementos na mesma linha
             }
             aux = aux.next;
         }
+        sb.append(" }");
 
         return sb.toString();
     }

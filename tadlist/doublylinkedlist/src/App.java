@@ -1,46 +1,69 @@
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         DoubleLinkedListOfInteger l = new DoubleLinkedListOfInteger();
-        l.addFim(10);
-        l.addFim(10);
-        l.addFim(10);
-        l.addFim(20);
-        l.addFim(30);
 
-        System.out.println("Lista: \n" + l);
-        System.out.println("----------------------");
-        System.out.println("Tamanho da lista: " + l.size());
-        System.out.println("----------------------");
+        Scanner scanner = new Scanner(System.in);
+        int option = -1;
 
-        System.out.println("\n*ADICIONA 10 NO INICIO*");
-        l.addInicio(10);
-        System.out.println("\nLista atualizada: \n" + l);
-        System.out.println("----------------------");
-        System.out.println("Tamanho da lista: " + l.size());
-        System.out.println("----------------------");
+        while (option != 0) {
+            System.out.println("\nLista: " + l);
+            System.out.println("Tamanho da lista: " + l.size());
+            System.out.println("----------------------");
+            System.out.println("Menu:");
+            System.out.println("1. Adicionar elemento por índice");
+            System.out.println("2. Adicionar elemento ao início da lista");
+            System.out.println("3. Adicionar elemento ao fim da lista");
+            System.out.println("4. Remover elemento do início");
+            System.out.println("5. Remover elemento do fim");
+            System.out.println("6. Remover elemento por valor");
+            System.out.println("7. Remover elemento no índice");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            option = scanner.nextInt();
 
-        System.out.println("\n*ADICIONA 50 NO INDEX 2*");
-        l.add(2, 50);
-        System.out.println("\nLista atualizada: \n" + l);
-        System.out.println("----------------------");
-        System.out.println("Tamanho da lista: " + l.size());
-        System.out.println("----------------------");
-
-        System.out.println("\n*REMOVE O 1º ELEMENTO DA LISTA*");
-        l.removeInicio();
-        System.out.println("\nLista atualizada: \n" + l);
-        System.out.println("----------------------");
-        System.out.println("Tamanho da lista: " + l.size());
-        System.out.println("----------------------");
-
-        System.out.println("\n*REMOVE ELEMENTO DO INDEX 5*");
-        l.remove(6);
-        System.out.println("\nLista atualizada: \n" + l);
-        System.out.println("----------------------");
-        System.out.println("Tamanho da lista: " + l.size());
-        System.out.println("----------------------");
-
+            switch (option) {
+                case 1:
+                    System.out.print("Informe o índice: ");
+                    int idxAdd = scanner.nextInt();
+                    System.out.print("Informe o valor: ");
+                    int valAdd = scanner.nextInt();
+                    l.add(idxAdd, valAdd);
+                    break;
+                case 2:
+                    System.out.print("Informe o valor: ");
+                    int valInicio = scanner.nextInt();
+                    l.addInicio(valInicio);
+                    break;
+                case 3:
+                    System.out.print("Informe o valor: ");
+                    int valFim = scanner.nextInt();
+                    l.addFim(valFim);
+                    break;
+                case 4:
+                    l.removeInicio();
+                    break;
+                case 5:
+                    l.removeFim();
+                    break;
+                case 6:
+                    System.out.print("Informe o valor a remover: ");
+                    int valRem = scanner.nextInt();
+                    l.removeElemento(valRem);
+                    break;
+                case 7:
+                    System.out.print("Informe o índice a remover: ");
+                    int idxRem = scanner.nextInt();
+                    l.remove(idxRem);
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+        scanner.close();
     }
-
 }
