@@ -5,20 +5,27 @@ public class App {
         Scanner sc = new Scanner(System.in);
 
         ListArrayOfInteger lista = new ListArrayOfInteger();
+        ListArrayOfInteger lista2 = new ListArrayOfInteger();
         lista.add(2);
         lista.add(4);
         lista.add(6);
         lista.add(8);
         lista.add(10);
         lista.add(12);
-        lista.remove(4);
-        System.out.println("\nLista:\n" + lista);
 
-        System.out.println("Digite um número para remover da lista: ");
-        int num = sc.nextInt();
-        lista.remove(num);
-        System.out.println("Lista após a remoção do elemento: " + lista);
-        System.out.println("");
+        lista2.add(7);
+        lista2.add(42);
+        lista2.add(64);
+        lista2.add(81);
+        lista2.add(130);
+        lista2.add(8);
+
+        System.out.println("\nLista: " + lista);
+        System.out.println("\nLista 2: " + lista2);
+
+        Integer elemento = maiorElementoPresenteNasDuasListas(lista, lista2);
+        System.out.println("Maior elemento entre as duas: " + elemento);
 
     }
+
 }
