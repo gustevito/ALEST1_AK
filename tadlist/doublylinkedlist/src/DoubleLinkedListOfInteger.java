@@ -122,6 +122,58 @@ public class DoubleLinkedListOfInteger {
         count--;
     }
 
+    public void insertSorted(Integer element) {
+        Node n = new Node(element);
+
+        current = header.next;
+        while (current != trailer && current.element < element) {
+            current = current.next;
+        }
+
+        n.prev = current.prev;
+        n.next = current;
+
+        current.prev.next = n;
+        current.prev = n;
+        count++;
+    }
+
+    public void inverter() {
+        Node left = header.next;
+        Node right = trailer.prev;
+
+        for (int i = 0; i < count / 2; i++) {
+            Integer temp = left.element;
+            left.element = right.element;
+            right.element = temp;
+
+            left = left.next;
+            right = right.prev;
+        }
+    }
+
+    public void addAll(LinkedListOfInteger list) {
+        Node aux = new Node(0);
+        for (int i = 0; i < list.size(); i++) {
+            aux.element = list.get(i);
+            addFim(aux.element);
+        }
+    }
+
+    public boolean hasRepetidos() {
+        Node aux = new Node(0);
+
+        current = header.next;
+        for (Integer i = 0; i < count; i++) {
+            aux.element = i;
+            if (aux.element.equals(current.element)) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
     // toString ---------------------------------------
 
     @Override

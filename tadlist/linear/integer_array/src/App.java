@@ -28,4 +28,17 @@ public class App {
 
     }
 
+    public static Integer maiorElementoPresenteNasDuasListas(ListArrayOfInteger lista1, ListArrayOfInteger lista2) {
+        Integer maior = 0;
+        for (int i = 0; i < lista1.size(); i++) {
+            Integer elem = lista1.get(i);
+            if (lista2.contains(elem)) {
+                if (maior == null || elem > maior) {
+                    maior = elem;
+                }
+            }
+        }
+        return maior;
+    }
+
 }
