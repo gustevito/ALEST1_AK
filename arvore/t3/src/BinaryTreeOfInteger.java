@@ -101,18 +101,36 @@ public class BinaryTreeOfInteger {
         return true;
     }
 
-    public boolean addLeft(Integer element, Integer elemFather) {
-        // Primeiro procura por elemFather
-        Node aux = searchNodeRef(elemFather, root);
+    public boolean hasLeft(Integer element) {
+        Node aux = searchNodeRef(element, root);
 
-        // Se nao encontrou elemFather
         if (aux == null)
             return false;
-        // Se elemFather ja tem filho a esquerda
+        if (aux.left == null)
+            return false;
+
+        return true;
+    }
+
+    public boolean hasRight(Integer element) {
+        Node aux = searchNodeRef(element, root);
+
+        if (aux == null)
+            return false;
+        if (aux.right == null)
+            return false;
+
+        return true;
+    }
+
+    public boolean addLeft(Integer element, Integer elemFather) {
+        Node aux = searchNodeRef(elemFather, root);
+
+        if (aux == null)
+            return false;
         if (aux.left != null)
             return false;
 
-        // Senao, insere element
         Node n = new Node(element); // primeiro cria o nodo
         n.father = aux; // faz o novo nodo apontar para o pai
         aux.left = n;// faz o pai apontar para o filho
@@ -121,17 +139,13 @@ public class BinaryTreeOfInteger {
     }
 
     public boolean addRight(Integer element, Integer elemFather) {
-        // Primeiro procura por elemFather
         Node aux = searchNodeRef(elemFather, root);
 
-        // Se nao encontrou elemFather
         if (aux == null)
             return false;
-        // Se elemFather ja tem filho a direita
         if (aux.right != null)
             return false;
 
-        // Senao, insere element
         Node n = new Node(element); // primeiro cria o nodo
         n.father = aux; // faz o novo nodo apontar para o pai
         aux.right = n;// faz o pai apontar para o filho
