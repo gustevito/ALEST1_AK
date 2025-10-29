@@ -173,6 +173,90 @@ public class BinaryTreeOfInteger {
         }
     }
 
+    public LinkedListOfInteger positionsPos() {
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        positionsPosAux(root, lista);
+        return lista;
+    }
+
+    private void positionsPosAux(Node n, LinkedListOfInteger lista) {
+        if (n != null) {
+            positionsPosAux(n.left, lista); // percorre subarvore da esq
+            positionsPosAux(n.right, lista); // percorre subarvore da dir
+            lista.add(n.element); // visita raiz
+        }
+    }
+
+    public LinkedListOfInteger positionsWidth() {
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        if (root == null)
+            return lista;
+
+        LinkedListOfInteger fila = new LinkedListOfInteger();
+        fila.add(root.element);
+
+        while (!fila.isEmpty()) {
+            Integer elem = fila.get(0);
+            // Remover primeiro elemento manualmente
+            LinkedListOfInteger novaFila = new LinkedListOfInteger();
+            for (int i = 1; i < fila.size(); i++) {
+                novaFila.add(fila.get(i));
+            }
+            fila = novaFila;
+
+            lista.add(elem);
+
+            Node n = searchNodeRef(elem, root);
+            if (n != null) {
+                if (n.left != null)
+                    fila.add(n.left.element);
+                if (n.right != null)
+                    fila.add(n.right.element);
+            }
+        }
+        return lista;
+    }
+
+    public Integer getLeft(Integer element) {
+        Node n = searchNodeRef(element, root);
+        if (n == null || n.left == null)
+            return null;
+        return n.left.element;
+    }
+
+    public Integer getRight(Integer element) {
+        Node n = searchNodeRef(element, root);
+        if (n == null || n.right == null)
+            return null;
+        return n.right.element;
+    }
+
+    public int height() {
+        return heightAux(root);
+    }
+
+    private int heightAux(Node n) {
+        if (n == null)
+            return -1;
+        if (n.left == null && n.right == null)
+            return 0;
+        int hLeft = heightAux(n.left);
+        int hRight = heightAux(n.right);
+        return 1 + Math.max(hLeft, hRight);
+    }
+
+    public int countLeaves() {
+        return countLeavesAux(root);
+    }
+
+    private int countLeavesAux(Node n) {
+        if (n == null)
+            return 0;
+        if (n.left == null && n.right == null)
+            return 1;
+        return countLeavesAux(n.left) + countLeavesAux(n.right);
+    }
+
     public void printTree() {
         if (root != null) {
             TreePrinter.print(root);
