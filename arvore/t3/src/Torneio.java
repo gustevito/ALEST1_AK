@@ -180,7 +180,7 @@ public class Torneio {
 
         // Verificar se é a final
         if (arvore.getParent(idPai) == null) {
-            System.out.println("\n🏆 " + nomeVencedor + " É O CAMPEÃO DO TORNEIO! 🏆");
+            System.out.println("\n** " + nomeVencedor + " É O CAMPEÃO DO TORNEIO! **");
         }
 
         return true;

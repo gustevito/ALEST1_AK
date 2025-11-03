@@ -5,10 +5,10 @@ public class Main {
     private static Torneio torneio = new Torneio();
 
     public static void main(String[] args) {
-        System.out.println("╔══════════════════════════════════════════╗");
-        System.out.println("║   SISTEMA DE TORNEIO ELIMINATÓRIO        ║");
-        System.out.println("║        (Árvore Binária)                  ║");
-        System.out.println("╚══════════════════════════════════════════╝");
+        System.out.println("╔══════════════════════════════════════╗");
+        System.out.println("║   SISTEMA DE TORNEIO ELIMINATÓRIO    ║");
+        System.out.println("║           (Árvore Binária)           ║");
+        System.out.println("╚══════════════════════════════════════╝");
 
         while (true) {
             mostrarMenu();
@@ -36,6 +36,9 @@ public class Main {
                 case 7:
                     torneio.mostrarEstadoVisual();
                     break;
+                case 8:
+                    criarTorneioTeste();
+                    break;
                 case 0:
                     System.out.println("\nEncerrando sistema...");
                     scanner.close();
@@ -61,6 +64,8 @@ public class Main {
         System.out.println("║ 5. Encontrar LCA entre jogadores         ║");
         System.out.println("║ 6. Mostrar caminho até final             ║");
         System.out.println("║ 7. Visualizar estado do torneio          ║");
+        System.out.println("╠══════════════════════════════════════════╣");
+        System.out.println("║ 8. Criação rápida (torneio teste)        ║");
         System.out.println("║ 0. Sair                                  ║");
         System.out.println("╚══════════════════════════════════════════╝");
         System.out.print("Escolha uma opção: ");
@@ -170,25 +175,26 @@ public class Main {
     // Método auxiliar para criar um torneio de teste rápido
     public static void criarTorneioTeste() {
         List<String> participantes = Arrays.asList(
-                "Alice", "Bob", "Carlos", "Diana",
-                "Eva", "Frank", "Gabi", "Hugo");
+                "Gustavo", "Sangalli", "Bernardo", "Laura",
+                "Filipe", "Nicolas", "Ronaldo", "Carlinhos");
 
         torneio.criarTorneio(participantes);
         System.out.println("\nTorneio de teste criado com 8 participantes!");
 
         // Simular algumas partidas
-        System.out.println("\nSimulando algumas partidas...");
-        torneio.registrarVencedor("Alice");
-        torneio.registrarVencedor("Carlos");
-        torneio.registrarVencedor("Eva");
-        torneio.registrarVencedor("Hugo");
+        Random r = new Random();
+        System.out.println("\nSimulando algumas partidas...\n");
+        torneio.registrarVencedor("Gustavo");
+        torneio.registrarVencedor("Bernardo");
+        torneio.registrarVencedor("Filipe");
+        torneio.registrarVencedor("Ronaldo");
 
         // Semifinais
-        torneio.registrarVencedor("Alice");
-        torneio.registrarVencedor("Hugo");
+        torneio.registrarVencedor("Bernardo");
+        torneio.registrarVencedor("Ronaldo");
 
         // Final
-        torneio.registrarVencedor("Hugo");
+        torneio.registrarVencedor("Bernardo");
 
         torneio.mostrarEstadoVisual();
     }
