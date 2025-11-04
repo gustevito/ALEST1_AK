@@ -5,6 +5,7 @@ import java.util.List;
  * Binary tree printer
  * 
  * @author MightyPork
+ *         (solução de print retirada do StackOverflow)
  */
 public class TreePrinter {
     /** Node that can be printed */

@@ -13,49 +13,37 @@ public class Torneio {
         this.proximoId = 1;
     }
 
-    /**
-     * Cria um torneio a partir de uma lista de participantes (8 a 32)
-     */
     public boolean criarTorneio(List<String> nomesParticipantes) {
         int n = nomesParticipantes.size();
 
-        // Validar número de participantes
         if (n < 8 || n > 32) {
             System.out.println("Erro: O torneio deve ter entre 8 e 32 participantes.");
             return false;
         }
 
-        // Verificar se é potência de 2
         if ((n & (n - 1)) != 0) {
             System.out.println("Erro: O número de participantes deve ser uma potência de 2 (8, 16 ou 32).");
             return false;
         }
 
-        // Limpar estruturas anteriores
         arvore.clear();
         participantes.clear();
         nomeParaId.clear();
         proximoId = 1;
 
-        // Calcular altura da árvore necessária
         int altura = (int) (Math.log(n) / Math.log(2));
 
-        // Criar a árvore completa primeiro
         Integer raizId = criarArvoreCompleta(altura);
 
-        // Agora preencher as folhas com os participantes
         preencherFolhas(nomesParticipantes);
 
         System.out.println("Torneio criado com sucesso para " + n + " participantes!");
         return true;
     }
 
-    /**
-     * Cria uma árvore binária completa com a altura especificada
-     */
     private Integer criarArvoreCompleta(int altura) {
         Integer nodeId = proximoId++;
-        participantes.put(nodeId, "___"); // Nodo vazio inicialmente
+        participantes.put(nodeId, "___");
 
         if (arvore.isEmpty()) {
             arvore.addRoot(nodeId);
@@ -69,9 +57,6 @@ public class Torneio {
         return nodeId;
     }
 
-    /**
-     * Cria uma subárvore recursivamente
-     */
     private void criarSubarvore(Integer paiId, int alturaRestante, boolean isEsquerda) {
         Integer nodeId = proximoId++;
         participantes.put(nodeId, "___");
@@ -88,24 +73,18 @@ public class Torneio {
         }
     }
 
-    /**
-     * Preenche as folhas da árvore com os participantes
-     */
     private void preencherFolhas(List<String> nomes) {
         LinkedListOfInteger todos = arvore.positionsPre();
         List<Integer> folhas = new ArrayList<>();
 
-        // Identificar as folhas
         for (Integer id : todos) {
             if (!arvore.hasLeft(id) && !arvore.hasRight(id)) {
                 folhas.add(id);
             }
         }
 
-        // Ordenar folhas pela ordem de percurso em largura para manter organização
         Collections.sort(folhas);
 
-        // Preencher as folhas com os nomes
         for (int i = 0; i < nomes.size() && i < folhas.size(); i++) {
             Integer folhaId = folhas.get(i);
             String nome = nomes.get(i);
@@ -114,9 +93,6 @@ public class Torneio {
         }
     }
 
-    /**
-     * Registra o vencedor de uma partida
-     */
     public boolean registrarVencedor(String nomeVencedor) {
         if (!nomeParaId.containsKey(nomeVencedor)) {
             System.out.println("Erro: Participante '" + nomeVencedor + "' não encontrado.");
@@ -131,7 +107,6 @@ public class Torneio {
             return false;
         }
 
-        // Verificar se ambos os filhos do pai já jogaram
         Integer idEsq = arvore.getLeft(idPai);
         Integer idDir = arvore.getRight(idPai);
 
@@ -143,9 +118,7 @@ public class Torneio {
             return false;
         }
 
-        // Verificar se o jogador está em uma das posições
         if (!idVencedor.equals(idEsq) && !idVencedor.equals(idDir)) {
-            // Procurar se o jogador já avançou
             boolean encontrado = false;
             LinkedListOfInteger caminho = new LinkedListOfInteger();
             obterCaminhoAteRaiz(idVencedor, caminho);
@@ -171,14 +144,12 @@ public class Torneio {
             }
         }
 
-        // Registrar o vencedor
         participantes.put(idPai, nomeVencedor);
         nomeParaId.remove(nomeVencedor);
         nomeParaId.put(nomeVencedor, idPai);
 
         System.out.println(nomeVencedor + " venceu a partida!");
 
-        // Verificar se é a final
         if (arvore.getParent(idPai) == null) {
             System.out.println("\n** " + nomeVencedor + " É O CAMPEÃO DO TORNEIO! **");
         }
@@ -186,11 +157,8 @@ public class Torneio {
         return true;
     }
 
-    /**
-     * Mostra percurso em pré-ordem
-     */
     public void mostrarPreOrdem() {
-        System.out.println("\n=== Percurso Pré-Ordem ===");
+        System.out.println("\n::: Percurso Pré-Ordem :::");
         LinkedListOfInteger lista = arvore.positionsPre();
         for (Integer id : lista) {
             System.out.print(participantes.get(id) + " ");
@@ -198,11 +166,8 @@ public class Torneio {
         System.out.println();
     }
 
-    /**
-     * Mostra percurso em pós-ordem
-     */
     public void mostrarPosOrdem() {
-        System.out.println("\n=== Percurso Pós-Ordem ===");
+        System.out.println("\n::: Percurso Pós-Ordem :::");
         LinkedListOfInteger lista = arvore.positionsPos();
         for (Integer id : lista) {
             System.out.print(participantes.get(id) + " ");
@@ -210,11 +175,8 @@ public class Torneio {
         System.out.println();
     }
 
-    /**
-     * Mostra percurso em largura
-     */
     public void mostrarEmLargura() {
-        System.out.println("\n=== Percurso em Largura ===");
+        System.out.println("\n::: Percurso em Largura :::");
         LinkedListOfInteger lista = arvore.positionsWidth();
         for (Integer id : lista) {
             System.out.print(participantes.get(id) + " ");
@@ -222,30 +184,21 @@ public class Torneio {
         System.out.println();
     }
 
-    /**
-     * Mostra altura da árvore
-     */
     public void mostrarAltura() {
         System.out.println("\nAltura da árvore: " + arvore.height());
     }
 
-    /**
-     * Mostra número de folhas e nós internos
-     */
     public void mostrarEstatisticas() {
         int folhas = arvore.countLeaves();
         int nosInternos = arvore.size() - folhas;
-        System.out.println("\n=== Estatísticas do Torneio ===");
+        System.out.println("\n::: Estatísticas do Torneio :::");
         System.out.println("Número de participantes (folhas): " + folhas);
         System.out.println("Número de partidas (nós internos): " + nosInternos);
         System.out.println("Total de nós: " + arvore.size());
     }
 
-    /**
-     * Encontra o LCA (primeira partida onde dois jogadores podem se enfrentar)
-     */
     public void encontrarLCA(String jogador1, String jogador2) {
-        System.out.println("\n=== LCA (Lowest Common Ancestor) ===");
+        System.out.println("\n::: LCA (Lowest Common Ancestor) :::");
 
         Integer id1 = buscarIdJogador(jogador1);
         Integer id2 = buscarIdJogador(jogador2);
@@ -255,14 +208,12 @@ public class Torneio {
             return;
         }
 
-        // Obter caminhos até a raiz
         LinkedListOfInteger caminho1 = new LinkedListOfInteger();
         LinkedListOfInteger caminho2 = new LinkedListOfInteger();
 
         obterCaminhoAteRaiz(id1, caminho1);
         obterCaminhoAteRaiz(id2, caminho2);
 
-        // Encontrar o primeiro ancestral comum
         Integer lca = null;
         for (int i = 0; i < caminho1.size(); i++) {
             for (int j = 0; j < caminho2.size(); j++) {
@@ -285,11 +236,8 @@ public class Torneio {
         System.out.println("Primeira partida possível entre eles: nó " + lca);
     }
 
-    /**
-     * Mostra o caminho de um jogador até a final
-     */
     public void mostrarCaminho(String jogador) {
-        System.out.println("\n=== Caminho até a Final ===");
+        System.out.println("\n::: Caminho até a Final :::");
 
         Integer id = buscarIdJogador(jogador);
         if (id == null) {
@@ -302,11 +250,10 @@ public class Torneio {
 
         System.out.println("Caminho de " + jogador + " até a final:");
 
-        // Verificar se já foi eliminado
         boolean eliminado = false;
         Integer ondeEliminado = null;
 
-        for (int i = 1; i < caminho.size(); i++) { // Pula o próprio jogador
+        for (int i = 1; i < caminho.size(); i++) { // pula o próprio jogador
             Integer idPartida = caminho.get(i);
             String vencedor = participantes.get(idPartida);
 
@@ -341,16 +288,11 @@ public class Torneio {
         }
     }
 
-    /**
-     * Busca o ID de um jogador pelo nome
-     */
     private Integer buscarIdJogador(String nome) {
-        // Primeiro verifica o mapa direto
         if (nomeParaId.containsKey(nome)) {
             return nomeParaId.get(nome);
         }
 
-        // Se não encontrar, procura em todos os nós
         for (Map.Entry<Integer, String> entry : participantes.entrySet()) {
             if (entry.getValue().equals(nome)) {
                 return entry.getKey();
@@ -360,9 +302,6 @@ public class Torneio {
         return null;
     }
 
-    /**
-     * Obtém o caminho de um nó até a raiz
-     */
     private void obterCaminhoAteRaiz(Integer nodeId, LinkedListOfInteger caminho) {
         Integer atual = nodeId;
         while (atual != null) {
@@ -371,11 +310,7 @@ public class Torneio {
         }
     }
 
-    /**
-     * Determina a fase do torneio baseado no nível do nó
-     */
     private String determinarFase(Integer nodeId) {
-        // Contar quantos níveis faltam até a raiz
         int nivel = 0;
         Integer atual = nodeId;
         while (arvore.getParent(atual) != null) {
@@ -397,11 +332,8 @@ public class Torneio {
         return "Fase " + nivel;
     }
 
-    /**
-     * Mostra o estado visual do torneio
-     */
     public void mostrarEstadoVisual() {
-        System.out.println("\n=== Estado Visual do Torneio ===");
+        System.out.println("\n::: Estado Visual do Torneio :::");
         mostrarArvoreFormatada(arvore.getRoot(), "", true);
     }
 
