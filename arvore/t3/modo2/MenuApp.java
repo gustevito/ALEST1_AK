@@ -42,6 +42,11 @@ public class MenuApp {
         menuTree.addChild("Notificações", "SMS");
     }
 
+    // Confere altura
+    public int getAltura() {
+        return menuTree.height();
+    }
+
     /**
      * Adiciona um novo item ao menu
      */
