@@ -105,7 +105,7 @@ public class DoubleLinkedListOfInteger {
             current = current.next;
         }
 
-        if (current == element) {
+        if (current.element == element) {
             current.next.prev = current.prev;
             current.prev.next = current.next;
         }
